@@ -19,7 +19,11 @@ const initialState = {
 const reducer = function (state, action) {
   switch (action.type) {
     case 'updateNums':
-      return { ...state, nums: action.payload };
+      return {
+        ...state,
+        nums: action.payload,
+        randomColors: createColors(action.payload),
+      };
     case 'updateColors':
       return { ...state, randomColors: createColors(state.nums) };
     case 'updateSize':
