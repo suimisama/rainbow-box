@@ -1,9 +1,10 @@
-import { useState, useReducer } from 'react';
+import { useReducer } from 'react';
 import { getRandomColor } from '../utilities/helpers';
+import { DEFAULT_BLOCK_NUMS, DEFAULT_BLOCK_SIZE } from '../config';
 import Button from './Button';
 import Box from './Box';
 
-function createColors(colorNums = 108) {
+function createColors(colorNums = DEFAULT_BLOCK_NUMS) {
   let colors = [];
   for (let i = 0; i < colorNums; i++) {
     const color = getRandomColor();
@@ -12,9 +13,9 @@ function createColors(colorNums = 108) {
   return colors;
 }
 const initialState = {
-  nums: 108,
+  nums: DEFAULT_BLOCK_NUMS,
   randomColors: createColors(),
-  size: 36,
+  size: DEFAULT_BLOCK_SIZE,
 };
 const reducer = function (state, action) {
   switch (action.type) {
@@ -30,9 +31,9 @@ const reducer = function (state, action) {
       return { ...state, size: action.payload };
     case 'updateAll':
       return {
+        size: action.payload.size,
         nums: action.payload.nums,
         randomColors: createColors(action.payload.nums),
-        size: action.payload.size,
       };
     default:
       return state;
@@ -62,7 +63,7 @@ function RainbowBox() {
       <div className="flex flex-row items-center gap-4">
         <Button
           onClick={() => {
-            const newNums = Math.floor(Math.random() * 108) + 36;
+            const newNums = Math.floor(Math.random() * DEFAULT_BLOCK_NUMS) + 36;
             dispatch({ type: 'updateNums', payload: newNums });
           }}
         >
@@ -73,7 +74,7 @@ function RainbowBox() {
         </Button>
         <Button
           onClick={() => {
-            const newSize = Math.floor(Math.random() * 36) + 24;
+            const newSize = Math.floor(Math.random() * DEFAULT_BLOCK_SIZE) + 24;
             dispatch({ type: 'updateSize', payload: newSize });
           }}
         >
@@ -81,8 +82,8 @@ function RainbowBox() {
         </Button>
         <Button
           onClick={() => {
-            const newNums = Math.floor(Math.random() * 108) + 36;
-            const newSize = Math.floor(Math.random() * 36) + 24;
+            const newNums = Math.floor(Math.random() * DEFAULT_BLOCK_NUMS) + 36;
+            const newSize = Math.floor(Math.random() * DEFAULT_BLOCK_SIZE) + 24;
             dispatch({
               type: 'updateAll',
               payload: { nums: newNums, size: newSize },

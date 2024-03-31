@@ -1,4 +1,7 @@
+import { useAlert } from '../context/AlertContext';
+
 function Box({ size = 36, color = '#000' }) {
+  const { showAlerts } = useAlert();
   const style = {
     width: size + 'px',
     height: size + 'px',
@@ -7,13 +10,14 @@ function Box({ size = 36, color = '#000' }) {
 
   // 颜色复制到剪切板
   function copy() {
-    navigator.clipboard.writeText(color)
+    navigator.clipboard
+      .writeText(color)
       .then(() => {
-        alert("颜色已复制到剪切板")
+        showAlerts(`✅ ${color} 已复制到剪切板`, 3000, color);
       })
-      .catch(err => {
-        alert("颜色复制失败:", err.message)
-      })
+      .catch((err) => {
+        showAlerts('❌ 颜色复制失败:' + err.message);
+      });
   }
 
   return (

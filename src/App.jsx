@@ -5,6 +5,7 @@ import Box from './ui/Box';
 import Button from './ui/Button';
 import { getRandomColor } from './utilities/helpers';
 import AppLayout from './ui/AppLayout';
+import { AlertProvider } from './context/AlertContext';
 
 const router = createBrowserRouter([
   {
@@ -14,7 +15,11 @@ const router = createBrowserRouter([
 ]);
 
 function App() {
-  return <RouterProvider router={router}></RouterProvider>;
+  return (
+    <AlertProvider>
+      <RouterProvider router={router}></RouterProvider>;
+    </AlertProvider>
+  );
 }
 
 export default App;

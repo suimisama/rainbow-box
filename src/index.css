@@ -33,3 +33,6 @@
 .normal-button:hover {
   background-color: hsl(var(--primary) / 0.9);
 }
+.alert-container {
+  background-color: hsl(var(--primary));
+}
