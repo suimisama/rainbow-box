@@ -25,6 +25,11 @@
     --ring: 240 4.9% 83.9%;
   }
 }
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
 
 .normal-button {
   @apply rounded-md text-xl font-semibold tracking-wide;
@@ -40,3 +45,56 @@
 .alert-container {
   background-color: hsl(var(--primary));
 }
+/* .current-box {
+  border-radius: 0.125rem;
+  position: relative;
+}
+.current-box::before {
+  content: '';
+  inset: 0;
+  position: absolute;
+  background: repeating-conic-gradient(
+    from var(--a),
+    #0f0,
+    #ff0,
+    #0ff,
+    #f0f,
+    #0ff
+  );
+  animation: rotating 4s linear infinite;
+}
+.current-box::after {
+  content: '';
+  inset: 0;
+  position: absolute;
+  background-image: repeating-conic-gradient(
+    from var(--a),
+    #0f0,
+    #ff0,
+    #0ff,
+    #f0f,
+    #0ff
+  );
+  animation: rotating 4s linear infinite;
+  filter: blur(40px);
+  opacity: 0.75;
+}
+.current-box span {
+  position: absolute;
+  inset: 4;
+  border-radius: 0.125rem;
+  z-index: 1;
+}
+@property --a {
+  syntax: '<angle>';
+  inherits: false;
+  initial-value: 0deg;
+}
+@keyframes rotating {
+  0% {
+    --a: 0deg;
+  }
+  100% {
+    --a: 360deg;
+  }
+} */

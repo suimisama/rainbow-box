@@ -1,64 +1,31 @@
-import { useReducer } from 'react';
-import { getRandomColor } from '../utilities/helpers';
-import { DEFAULT_BLOCK_NUMS, DEFAULT_BLOCK_SIZE } from '../config';
+import { DEFAULT_BLOCK_NUMS, DEFAULT_BLOCK_SIZE } from '../../config';
 import { Button } from 'antd';
-import Box from './Box';
-import { SvgIcons } from './SvgIcons';
+import Box from './NormalBox';
+import { SvgIcons } from '../../ui/SvgIcons';
+import { useBox } from '../../context/BoxContext';
 
-function createColors(colorNums = DEFAULT_BLOCK_NUMS) {
-  let colors = [];
-  for (let i = 0; i < colorNums; i++) {
-    const color = getRandomColor();
-    colors.push(color);
-  }
-  return colors;
-}
-const initialState = {
-  nums: DEFAULT_BLOCK_NUMS,
-  randomColors: createColors(),
-  size: DEFAULT_BLOCK_SIZE,
-};
-const reducer = function (state, action) {
-  switch (action.type) {
-    case 'updateNums':
-      return {
-        ...state,
-        nums: action.payload,
-        randomColors: createColors(action.payload),
-      };
-    case 'updateColors':
-      return { ...state, randomColors: createColors(state.nums) };
-    case 'updateSize':
-      return { ...state, size: action.payload };
-    case 'updateAll':
-      return {
-        size: action.payload.size,
-        nums: action.payload.nums,
-        randomColors: createColors(action.payload.nums),
-      };
-    default:
-      return state;
-  }
-};
 function RainbowBox() {
-  const [{ nums, randomColors, size }, dispatch] = useReducer(
-    reducer,
-    initialState
-  );
-
+  const { nums, randomColors, size, dispatch } = useBox();
   const gap = size * 0.5;
   const style = {
     gap: `${gap}px`,
   };
 
   return (
-    <div className="flex flex-col justify-center items-center h-full p-4 flex-wrap">
+    <div className="flex flex-col justify-center items-center  p-4 flex-wrap">
       <div
-        className="flex justify-start items-center mb-6 translate-all flex-wrap w-2/3"
+        className="flex justify-start items-center mb-6 translate-all flex-wrap w-2/3 w-[1440px]"
         style={style}
       >
         {randomColors.slice(0, nums).map((color, index) => (
-          <Box size={size} color={color} key={index} />
+          <Box
+            size={size}
+            color={color}
+            key={index}
+            onClick={() =>
+              dispatch({ type: 'updateCurrentColor', payload: color })
+            }
+          />
         ))}
       </div>
 

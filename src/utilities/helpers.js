@@ -1,3 +1,5 @@
+import { DEFAULT_BLOCK_NUMS } from '../config';
+
 export function getRandomColor() {
   let letters = '0123456789ABCDEF';
   let color = '#';
@@ -26,4 +28,16 @@ export function hexToRgb(hex) {
 export function rgbToHex({ r, g, b }) {
   const hex = ((r << 16) | (g << 8) | b).toString(16).padStart(6, '0');
   return `#${hex}`;
+}
+export function createColors(colorNums = DEFAULT_BLOCK_NUMS) {
+  let colors = [];
+  for (let i = 0; i < colorNums; i++) {
+    const color = getRandomColor();
+    colors.push(color);
+  }
+  return colors;
+}
+
+export function copy(text) {
+  return navigator.clipboard.writeText(text);
 }

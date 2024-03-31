@@ -1,6 +1,7 @@
-import { useAlert } from '../context/AlertContext';
+import { useAlert } from '../../context/AlertContext';
+import { copy } from '../../utilities/helpers';
 
-function Box({ size = 36, color = '#000' }) {
+function Box({ size = 36, color = '#000', onClick = () => {} }) {
   const { showAlerts } = useAlert();
   const style = {
     width: size + 'px',
@@ -9,9 +10,11 @@ function Box({ size = 36, color = '#000' }) {
   };
 
   // 颜色复制到剪切板
-  function copy() {
-    navigator.clipboard
-      .writeText(color)
+  function handleClick() {
+    // 处理传入的自定义函数
+    onClick();
+    // 复制颜色代码
+    copy(color)
       .then(() => {
         showAlerts(`✅ ${color} 已复制到剪切板`, 3000, color);
       })
@@ -25,7 +28,7 @@ function Box({ size = 36, color = '#000' }) {
       className={`inline-block rounded-sm transition-all duration-200 cursor-pointer hover:scale-150 hover:shadow-md`}
       style={style}
       title={color}
-      onClick={copy}
+      onClick={handleClick}
     ></span>
   );
 }
