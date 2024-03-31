@@ -1,8 +1,9 @@
 import { useReducer } from 'react';
 import { getRandomColor } from '../utilities/helpers';
 import { DEFAULT_BLOCK_NUMS, DEFAULT_BLOCK_SIZE } from '../config';
-import Button from './Button';
+import { Button } from 'antd';
 import Box from './Box';
+import { SvgIcons } from './SvgIcons';
 
 function createColors(colorNums = DEFAULT_BLOCK_NUMS) {
   let colors = [];
@@ -60,8 +61,21 @@ function RainbowBox() {
           <Box size={size} color={color} key={index} />
         ))}
       </div>
-      <div className="flex flex-row items-center gap-4">
+
+      <div className="flex flex-row items-center gap-4 tracking-wider">
+        <Button type="primary" size="middle" className="font-semibold">
+          <div className="flex flex-row items-center gap-2">
+            <SvgIcons>
+              <path
+                fill="currentColor"
+                d="M22 24H2v-4h20zM13.06 5.19l3.75 3.75L7.75 18H4v-3.75zm4.82 2.68l-3.75-3.75l1.83-1.83a.996.996 0 0 1 1.41 0l2.34 2.34c.39.39.39 1.02 0 1.41z"
+              ></path>
+            </SvgIcons>
+            定制
+          </div>
+        </Button>
         <Button
+          className="font-semibold"
           onClick={() => {
             const newNums = Math.floor(Math.random() * DEFAULT_BLOCK_NUMS) + 36;
             dispatch({ type: 'updateNums', payload: newNums });
@@ -69,10 +83,14 @@ function RainbowBox() {
         >
           随机个数
         </Button>
-        <Button onClick={() => dispatch({ type: 'updateColors' })}>
+        <Button
+          className="font-semibold"
+          onClick={() => dispatch({ type: 'updateColors' })}
+        >
           随机颜色
         </Button>
         <Button
+          className="font-semibold"
           onClick={() => {
             const newSize = Math.floor(Math.random() * DEFAULT_BLOCK_SIZE) + 24;
             dispatch({ type: 'updateSize', payload: newSize });
@@ -81,6 +99,8 @@ function RainbowBox() {
           随机大小
         </Button>
         <Button
+          className="font-semibold"
+          size="middle"
           onClick={() => {
             const newNums = Math.floor(Math.random() * DEFAULT_BLOCK_NUMS) + 36;
             const newSize = Math.floor(Math.random() * DEFAULT_BLOCK_SIZE) + 24;

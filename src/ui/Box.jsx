@@ -22,7 +22,7 @@ function Box({ size = 36, color = '#000' }) {
 
   return (
     <span
-      className={`inline-block rounded-sm transition-all duration-200 cursor-pointer hover:scale-150`}
+      className={`inline-block rounded-sm transition-all duration-200 cursor-pointer hover:scale-150 hover:shadow-md`}
       style={style}
       title={color}
       onClick={copy}
