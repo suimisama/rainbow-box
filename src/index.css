@@ -45,6 +45,19 @@
 .alert-container {
   background-color: hsl(var(--primary));
 }
+.gradient-text {
+  background: linear-gradient(to right, red, blue);
+  -webkit-background-clip: text;
+  color: transparent;
+}
+.gradient-square {
+  inset: 0;
+  background-image: linear-gradient(to bottom right, #ff69b4, #ff9f43);
+  animation: rotating 4s linear infinite;
+
+  opacity: 0.75;
+}
+
 /* .current-box {
   border-radius: 0.125rem;
   position: relative;

@@ -1,8 +1,9 @@
 import { DEFAULT_BLOCK_NUMS, DEFAULT_BLOCK_SIZE } from '../../config';
-import { Button } from 'antd';
-import Box from './NormalBox';
+
 import { SvgIcons } from '../../ui/SvgIcons';
 import { useBox } from '../../context/BoxContext';
+import Box from './Box';
+import Draggable from '../../ui/Draggable';
 
 function RainbowBox() {
   const { nums, randomColors, size, dispatch } = useBox();
@@ -12,25 +13,27 @@ function RainbowBox() {
   };
 
   return (
-    <div className="flex flex-col justify-center items-center  p-4 flex-wrap">
+    <div className="flex flex-col justify-center items-center flex-wrap my-4">
       <div
         className="flex justify-start items-center mb-6 translate-all flex-wrap w-2/3 w-[1440px]"
         style={style}
       >
         {randomColors.slice(0, nums).map((color, index) => (
-          <Box
-            size={size}
-            color={color}
-            key={index}
-            onClick={() =>
-              dispatch({ type: 'updateCurrentColor', payload: color })
-            }
-          />
+          <Draggable id={color} data={{ type: 'box' }} key={index}>
+            <Box
+              size={size}
+              color={color}
+              key={index}
+              onClick={() =>
+                dispatch({ type: 'updateCurrentColor', payload: color })
+              }
+            />
+          </Draggable>
         ))}
       </div>
 
       <div className="flex flex-row items-center gap-4 tracking-wider">
-        <Button type="primary" size="middle" className="font-semibold">
+        {/* <Button type="primary" size="middle" className="font-semibold">
           <div className="flex flex-row items-center gap-2">
             <SvgIcons>
               <path
@@ -78,7 +81,7 @@ function RainbowBox() {
           }}
         >
           全随机
-        </Button>
+        </Button> */}
       </div>
     </div>
   );

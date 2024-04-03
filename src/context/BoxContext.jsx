@@ -1,13 +1,18 @@
 import { createContext, useContext, useReducer } from 'react';
 import { DEFAULT_BLOCK_NUMS, DEFAULT_BLOCK_SIZE } from '../config';
-import { createColors, getRandomColor } from '../utilities/helpers';
+import {
+  blendHexColors,
+  createColors,
+  getRandomColor,
+} from '../utilities/helpers';
 
 const BoxContext = createContext();
 const initialState = {
   nums: DEFAULT_BLOCK_NUMS,
   randomColors: createColors(),
   size: DEFAULT_BLOCK_SIZE,
-  currentColor: '#000',
+  currentColor: '',
+  history: [],
 };
 
 const reducer = function (state, action) {
@@ -30,8 +35,19 @@ const reducer = function (state, action) {
         randomColors: createColors(action.payload.nums),
       };
     case 'updateCurrentColor':
+      const colors = state.currentColor
+        ? [...state.history, state.currentColor]
+        : [...state.history];
+      const filteredHistory = colors.filter(
+        (value, index, self) => self.indexOf(value) === index
+      );
+
       return {
         ...state,
+        history:
+          action.payload === state.currentColor
+            ? state.history
+            : filteredHistory,
         currentColor: action.payload,
       };
     default:
@@ -39,14 +55,12 @@ const reducer = function (state, action) {
   }
 };
 function BoxProvider({ children }) {
-  const [{ nums, randomColors, size, currentColor }, dispatch] = useReducer(
-    reducer,
-    initialState
-  );
+  const [{ nums, randomColors, size, currentColor, history }, dispatch] =
+    useReducer(reducer, initialState);
 
   return (
     <BoxContext.Provider
-      value={{ nums, randomColors, size, currentColor, dispatch }}
+      value={{ nums, randomColors, size, currentColor, history, dispatch }}
     >
       {children}
     </BoxContext.Provider>

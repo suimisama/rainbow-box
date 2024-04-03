@@ -18,8 +18,8 @@ function DisplayBox({ size = 144 }) {
       });
   }
   return (
-    <div className="w-full m-32 flex items-center justify-center">
-      <div className="w-[81%] flex gap-8">
+    <div className="w-full flex items-center ">
+      <div className="flex gap-8">
         <CurrentBox color={currentColor} size={size} onClick={handleClick} />
         <ShowColor color={currentColor} />
       </div>

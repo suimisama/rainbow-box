@@ -1,15 +1,28 @@
-import { BoxProvider } from '../context/BoxContext';
-import DisplayBox from '../features/Box/DisplayBox';
+import HistoryBox from '../features/Box/HistoryBox';
+import MixBox from '../features/Box/MixBox';
 import RainbowBox from '../features/Box/RainbowBox';
+import Droppable from './Droppable';
+import Header from './Header';
+import MainContent from './MainContent';
+import SideBar from './SideBar';
+import Title from './Title';
 
 function AppLayout() {
   return (
     //   grid grid-cols-[auto_1fr_auto]
-    <div className="h-screen">
-      <BoxProvider>
-        <DisplayBox />
+    <div className="h-screen flex">
+      <SideBar>
+        <Header>Rainbow</Header>
+      </SideBar>
+
+      <MainContent>
+        <Droppable data={{ type: 'box' }}>
+          <MixBox />
+        </Droppable>
         <RainbowBox />
-      </BoxProvider>
+        <Title>历史记录</Title>
+        <HistoryBox color={'#000'} />
+      </MainContent>
     </div>
   );
 }
